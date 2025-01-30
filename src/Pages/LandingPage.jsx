@@ -26,11 +26,12 @@ import jacob from "../assets/jacob.png";
 import ryan from "../assets/ryan.png";
 import right from "../assets/ar-right.png";
 import left from "../assets/ar-left.png";
+import Footer from "../components/Footer";
 
 const LandingPage = () => {
   return (
     <div className="landing-page">
-      <div className="video-b_footballound">
+      <div className="w-[100vw] h-full">
         <ReactPlayer
           url={video} // The video URL
           playing={true} // Automatically play the video
@@ -516,6 +517,8 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

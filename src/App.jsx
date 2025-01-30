@@ -1,13 +1,15 @@
 // import { Navbar, Footer } from "./components";
+import Business from "./Pages/Business";
 import LandingPage from "./Pages/LandingPage";
+import { Route, Routes, useLocation } from "react-router-dom";
 
 const App = () => {
   return (
     <div>
-      <div>
-        <LandingPage />
-      </div>
-      {/* <Footer /> */}
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/business" element={<Business />} />
+      </Routes>
     </div>
   );
 };

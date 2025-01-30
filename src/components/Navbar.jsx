@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import logo1 from "../assets/book_the_court_2.png";
 import nav_logo from "../assets/nav_logo.png";
 const Navbar = () => {
@@ -9,7 +10,9 @@ const Navbar = () => {
       <div className="flex text-white gap-6 text-[18px] font-[500]">
         <p>About Us</p>
         <p>Resources</p>
-        <p>For Business</p>
+        <Link to="/business">
+          <p>For Business</p>
+        </Link>
       </div>
       <div className="flex gap-2 ">
         <button className="bg-[#A2DF00] font-beVietnam text-[18px] font-[500] p-3 pl-6 pr-6 rounded-md">
