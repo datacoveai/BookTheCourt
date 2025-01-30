@@ -1,6 +1,8 @@
 import arrow from "../assets/Arrow_4.png";
 import newsletter_pic from "../assets/newsletter_pic.png";
 import article1 from "../assets/article_1.png";
+import article2 from "../assets/article_2.png";
+import article3 from "../assets/article_3.png";
 import avatar1 from "../assets/avatar.png";
 import right from "../assets/ar-right.png";
 import left from "../assets/ar-left.png";
@@ -12,7 +14,7 @@ const Footer = () => {
       <div className="bg-black  ">
         {/* newsletter */}
         <div className="flex justify-center">
-          <div className="w-[80%] bg-white rounded-[10px] flex mt-[4rem] ">
+          <div className="w-[80%] bg-white rounded-[10px] justify-between flex mt-[4rem] ">
             <div className="w-1/2 h-full flex flex-col justify-center align-middle gap-5 p-4">
               <div className="flex justify-center">
                 <h2 className="uppercase text-[58px] font-[900]  bg-gradient-to-b from-[#262626] to-[#B8C2CE] text-transparent bg-clip-text">
@@ -20,18 +22,19 @@ const Footer = () => {
                 </h2>
               </div>
 
-              <div className="flex justify-center w-[70%]">
+              <div className="flex justify-center w-full">
                 <input
                   type="email"
                   placeholder="shovon.khan0099@gmail.com"
-                  className="pt-4 pb-4 pl-4 pr-18 border-[#262626] border-[1px] rounded-tl-[8px] rounded-bl-[8px]"
+                  className="pt-4 pb-4 pl-4 pr-18 border-[#262626] border-[1px] rounded-tl-[8px] rounded-bl-[8px] w-[80%]"
                 />
+
                 <div className="bg-[#262626] items-center flex p-4 rounded-tr-[8px] rounded-br-[8px]">
                   <img src={arrow} alt="" />
                 </div>
               </div>
             </div>
-            <div className="w-1/2 h-full">
+            <div className="w-[30%] h-full ml-[7rem]">
               <img src={newsletter_pic} alt="" />
             </div>
           </div>
@@ -48,10 +51,10 @@ const Footer = () => {
             </p>
           </div>
           <div className="flex w-[100%] justify-center align-middle mt-[2rem] ">
-            <div className="w-[70%] flex gap-7 mb-[5rem]">
+            <div className="w-[70%] flex justify-center gap-7 mb-[5rem]">
               {" "}
               {/* article 1 */}
-              <div className="flex flex-col w-[28rem] gap-2 ">
+              <div className="flex flex-col w-[24rem] gap-2 ">
                 {/* article img */}
                 <div>
                   <img src={article1} alt="" className=" w-full" />
@@ -71,7 +74,7 @@ const Footer = () => {
                 </div>
                 {/* text */}
                 <div className="text-white mt-[15px] ">
-                  <h3 className="text-[22px] font-[400] mb-[15px]">
+                  <h3 className="text-[19px] font-[400] mb-[15px]">
                     5 Exercises Basketball Players Should Be Using To Develop
                     Strength
                   </h3>
@@ -83,10 +86,10 @@ const Footer = () => {
                 </div>
               </div>
               {/* article2 2 */}
-              <div className="flex flex-col w-[28rem] gap-2">
+              <div className="flex flex-col w-[24rem] gap-2">
                 {/* article img */}
                 <div>
-                  <img src={article1} alt="" className="w-full" />
+                  <img src={article2} alt="" className="w-full" />
                 </div>
                 {/* avatar and name */}
                 <div className="flex gap-6 font-beVietnam mt-[15px]">
@@ -103,7 +106,7 @@ const Footer = () => {
                 </div>
                 {/* text */}
                 <div className="text-white mt-[15px]">
-                  <h3 className="text-[22px] font-[400] mb-[15px]">
+                  <h3 className="text-[19px] font-[400] mb-[15px]">
                     5 Exercises Basketball Players Should Be Using To Develop
                     Strength
                   </h3>
@@ -115,10 +118,10 @@ const Footer = () => {
                 </div>
               </div>
               {/* article 3 */}
-              <div className="flex flex-col w-[28rem] gap-2">
+              <div className="flex flex-col w-[24rem] gap-2">
                 {/* article img */}
                 <div>
-                  <img src={article1} alt="" className="w-full" />
+                  <img src={article3} alt="" className="w-full" />
                 </div>
                 {/* avatar and name */}
                 <div className="flex gap-6 font-beVietnam mt-[15px]">
@@ -135,7 +138,7 @@ const Footer = () => {
                 </div>
                 {/* text */}
                 <div className="text-white mt-[15px]">
-                  <h3 className="text-[22px] font-[400] mb-[15px]">
+                  <h3 className="text-[19px] font-[400] mb-[15px]">
                     5 Exercises Basketball Players Should Be Using To Develop
                     Strength
                   </h3>
