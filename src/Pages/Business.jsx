@@ -29,6 +29,9 @@ import contact_mail from "../assets/business/contact_mail.png";
 import contact_messege from "../assets/business/contact_messege.png";
 import contact_pen from "../assets/business/contact_pen.png";
 import contact_phone from "../assets/business/contact_phone.png";
+import t_ball from "../assets/business/t-ball.png";
+import t_bat from "../assets/business/b-bat.png";
+import facilities from "../assets/business/facilities.jpeg";
 
 const Business = () => {
   const [openSections, setOpenSections] = useState([false, false]);
@@ -227,15 +230,15 @@ const Business = () => {
       {/* BOOK COURTS */}
       <div className="bg-black h-[75vh] flex">
         <div className="flex items-center align-middle justify-between w-full">
-          <div className="w-[45rem] h-[700px] bg-[#A2DF00] flex justify-center items-center">
+          <div className="w-[45rem] xl:w-[40rem] lg:w-[28rem] 2xl:w-[50rem] h-[700px] bg-[#A2DF00] flex justify-center items-center">
             <div className="-ml-18">
               <img src={image2} alt="" className=" w-[20rem] h-[40rem]" />
             </div>
           </div>
-          <div className="p-4 -ml-[25rem]">
+          <div className="p-4 -ml-[25rem] lg:-ml-[3rem] 2xl:-ml-[9rem]">
             <img src={image1} alt="" className=" w-[20rem] h-[30rem]" />
           </div>
-          <div className="w-[40%]">
+          <div className="w-[40%] lg:ml-[2rem]">
             {" "}
             <h2 className="uppercase text-white text-[42px] font-[600]">
               let players <br /> effortlessly{" "}
@@ -556,7 +559,7 @@ const Business = () => {
               elevate your sporting experience
             </p>
           </div>
-          <div className="flex gap-4 w-[80%] justify-between align-middle items-center mt-[5rem]">
+          <div className="flex gap-4 max-w-[60%] justify-between align-middle items-center mt-[5rem]">
             <div>
               <img src={safer} alt="" />
             </div>
@@ -707,6 +710,58 @@ const Business = () => {
           </div>
         </div>
       </div>
+      {/* OUR FACILITIES */}
+      <div
+        className="h-[70vh]  flex justify-center w-full items-center relative"
+        style={{
+          backgroundImage: `url(${facilities})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          height: "70vh", // Adjust this as needed
+          width: "100%",
+        }}
+      >
+        {/* Image & Green Box Container */}
+        <div className="relative  w-[80%]  h-[80%] flex justify-between">
+          {/* Left Side (Image & Green Box) */}
+          <div className="relative 2xl:w-[60%] x:m-w[90%]  ">
+            <img src={t_ball} alt="Tennis Ball" className="" />
+            <div className="absolute bg-[#AFD639] w-[24rem] h-[19rem] md:bottom-[2rem] xl:left-[6rem] xl:bottom-[2rem] 2xl:left-[10rem] 2xl:bottom-[2rem]  p-6 flex flex-col gap-4">
+              {/* Tennis Icon */}
+              <div>
+                <img src={t_bat} alt="" />
+              </div>
+              {/* Text Content */}
+              <p className="text-black">
+                Dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
+                sit aspernatur aut odit aut fugit, sed quia. Quia voluptas sit
+                aspernatur aut odit aut fugit.
+              </p>
+              {/* Arrow Icon */}
+              <span className="text-black text-lg">→</span>
+            </div>
+          </div>
+
+          {/* Right Side (For Spacing) */}
+          <div className="w-1/2">
+            <h2 className="uppercase text-[42px] font-[700] text-white mb-[15px] font-beVietnam">
+              our <span className="text-[#A2DF00]">facilities</span>
+            </h2>
+            <p className="text-[#FFFFFFCC] text-opacity-80 text-[22px] font-[400] w-[80%] mt-[2rem]">
+              Explore the sporting facilities we provide and enhance your
+              sporting experience with us.
+            </p>
+            <div className="text-[#898989] text-[37px] uppercase mt-[2rem] font-[600] cursor-pointer">
+              <p className="hover:text-white">tennis</p>
+              <p className="hover:text-white">football</p>
+              <p className="hover:text-white">badminton</p>
+              <p className="hover:text-white">cricket</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <Footer />
     </div>
   );
