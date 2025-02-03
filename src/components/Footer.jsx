@@ -1,3 +1,4 @@
+import React, { useRef } from "react";
 import arrow from "../assets/Arrow_4.png";
 import newsletter_pic from "../assets/newsletter_pic.png";
 import article1 from "../assets/article_1.png";
@@ -8,206 +9,228 @@ import right from "../assets/ar-right.png";
 import left from "../assets/ar-left.png";
 import footer_logo from "../assets/footer_logo.png";
 
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 const Footer = () => {
+  const sliderRef = React.useRef(null);
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3, // Show 2 slides on larger screens
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 1024, // Tablets
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+      {
+        breakpoint: 640, // Mobile
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+  };
+
+  const prevSlide = () => {
+    sliderRef.current.slickPrev();
+  };
+
+  const nextSlide = () => {
+    sliderRef.current.slickNext();
+  };
+
+  // Dummy data for articles (replace with API data if needed)
+  const articles = [
+    {
+      img: article1,
+      avatar: avatar1,
+      author: "Jake Will.",
+      date: "04 June 2023",
+      title:
+        "5 Exercises Basketball Players Should Be Using To Develop Strength",
+      description:
+        "This article was written by Jake Willhoite from Healthlisted.com Strength in basketball isn’t all about a massive body mass or ripped muscles.",
+    },
+    {
+      img: article2,
+      avatar: avatar1,
+      author: "Jake Will.",
+      date: "04 June 2023",
+      title:
+        "5 Exercises Basketball Players Should Be Using To Develop Strength",
+      description:
+        "This article was written by Jake Willhoite from Healthlisted.com Strength in basketball isn’t all about a massive body mass or ripped muscles.",
+    },
+    {
+      img: article3,
+      avatar: avatar1,
+      author: "Jake Will.",
+      date: "04 June 2023",
+      title:
+        "5 Exercises Basketball Players Should Be Using To Develop Strength",
+      description:
+        "This article was written by Jake Willhoite from Healthlisted.com Strength in basketball isn’t all about a massive body mass or ripped muscles.",
+    },
+  ];
+
   return (
     <>
-      <div className="bg-black  ">
+      <div className="bg-black p-10 ">
         {/* newsletter */}
         <div className="flex justify-center">
-          <div className="w-[80%] bg-white rounded-[10px] justify-between flex mt-[4rem] ">
-            <div className="w-1/2 h-full flex flex-col justify-center align-middle gap-5 p-4">
-              <div className="flex justify-center">
-                <h2 className="uppercase text-[58px] font-[900]  bg-gradient-to-b from-[#262626] to-[#B8C2CE] text-transparent bg-clip-text">
-                  Subscribe to our <br /> newsletter
-                </h2>
-              </div>
-
-              <div className="flex justify-center w-full">
+          <div className="w-[90%] max-w-8xl bg-white rounded-[10px] flex flex-col md:flex-row justify-between items-center mt-[4rem]">
+            <div className="w-full md:w-1/2 flex flex-col justify-between md:ml-10 gap-5 text-center md:text-left">
+              <h2 className="uppercase text-[36px] md:text-[48px] lg:text-[58px] font-[900] bg-gradient-to-b from-[#262626] to-[#B8C2CE] text-transparent bg-clip-text">
+                Subscribe to our <br /> newsletter
+              </h2>
+              <div className="flex w-full max-w-md p-4 mb-6 md:p-0">
                 <input
                   type="email"
-                  placeholder="shovon.khan0099@gmail.com"
-                  className="pt-4 pb-4 pl-4 pr-18 border-[#262626] border-[1px] rounded-tl-[8px] rounded-bl-[8px] w-[80%]"
+                  placeholder="Enter your email"
+                  className="flex-grow pt-4 pb-4 pl-4 border-[#262626] border-[1px] rounded-tl-[8px] rounded-bl-[8px] text-[16px]"
                 />
-
-                <div className="bg-[#262626] items-center flex p-4 rounded-tr-[8px] rounded-br-[8px]">
-                  <img src={arrow} alt="" />
-                </div>
+                <button className="bg-[#262626] flex items-center justify-center px-4 py-4 rounded-tr-[8px] rounded-br-[8px]">
+                  <img src={arrow} alt="Send" className="w-5 h-5" />
+                </button>
               </div>
             </div>
-            <div className="w-[30%] h-full ml-[7rem]">
-              <img src={newsletter_pic} alt="" />
+            <div className="w-full md:w-[60%] md:mb-0 flex justify-center mt-8 md:mt-0 ">
+              <img
+                src={newsletter_pic}
+                alt="Newsletter"
+                className="max-w-[80%] md:max-w-full"
+              />
             </div>
           </div>
         </div>
 
         {/* ARTICLES */}
-        <div className="">
-          <div className="text-center mt-[5rem] ">
-            <h2 className="uppercase text-[42px] font-[700] text-white mb-[15px] font-beVietnam ">
-              our <span className="text-[#A2DF00]">articles</span>
-            </h2>
-            <p className="text-[#FFFFFFCC] text-opacity-80 text-[22px] font-[400] w-[100%] mt-[2rem]">
-              View the articles curated by our users.
-            </p>
-          </div>
-          <div className="flex w-[100%] justify-center align-middle mt-[2rem] ">
-            <div className="w-[70%] flex justify-center gap-7 mb-[5rem]">
-              {" "}
-              {/* article 1 */}
-              <div className="flex flex-col w-[24rem] gap-2 ">
-                {/* article img */}
-                <div>
-                  <img src={article1} alt="" className=" w-full" />
-                </div>
-                {/* avatar and name */}
-                <div className="flex gap-6 font-beVietnam mt-[15px]">
-                  <div>
-                    <img src={avatar1} alt="" />
+        <div className="text-center mt-[5rem] px-4">
+          {/* Title */}
+          <h2 className="uppercase text-[42px] font-[700] text-white mb-[15px] font-beVietnam">
+            our <span className="text-[#A2DF00]">articles</span>
+          </h2>
+          <p className="text-[#FFFFFFCC] text-opacity-80 text-[22px] font-[400] w-[100%] mt-[2rem]">
+            View the articles curated by our users.
+          </p>
+        </div>
+        <div className="mt-[2rem] max-w-7xl mx-auto">
+          <Slider ref={sliderRef} {...settings}>
+            {articles.map((article, index) => (
+              <div key={index} className="p-4">
+                <div className="flex flex-col w-full gap-2 p-1 rounded-lg shadow-lg">
+                  {/* Article Image */}
+                  <img
+                    src={article.img}
+                    alt="Article"
+                    className="w-full rounded-lg"
+                  />
+
+                  {/* Avatar & Author */}
+                  <div className="flex gap-4 font-beVietnam mt-[15px] items-center">
+                    <img
+                      src={article.avatar}
+                      alt="Avatar"
+                      className="w-10 h-10 rounded-full"
+                    />
+                    <p className="text-white text-[16px]">{article.author}</p>
                   </div>
-                  <div className="flex justify-center items-center text-white ">
-                    <p>Jake Will.</p>
+
+                  {/* Date */}
+                  <div className="text-white text-[12px] mt-[10px]">
+                    {article.date}
                   </div>
-                </div>
-                {/* date */}
-                <div className="text-white text-[12px] mt-[15px]">
-                  04 June 2023
-                </div>
-                {/* text */}
-                <div className="text-white mt-[15px] ">
-                  <h3 className="text-[19px] font-[400] mb-[15px]">
-                    5 Exercises Basketball Players Should Be Using To Develop
-                    Strength
-                  </h3>
-                  <p className="text-[#B5B5B5] text-[12px] text-justify">
-                    This article was written by Jake Willhoite from
-                    Healthlisted.com Strength in basketball isn’t all about a
-                    massive body mass or ripped muscles.
-                  </p>
+
+                  {/* Title & Description */}
+                  <div className="text-white mt-[10px]">
+                    <h3 className="text-[19px] font-[500] mb-[10px]">
+                      {article.title}
+                    </h3>
+                    <p className="text-[#B5B5B5] text-[12px] text-justify">
+                      {article.description}
+                    </p>
+                  </div>
                 </div>
               </div>
-              {/* article2 2 */}
-              <div className="flex flex-col w-[24rem] gap-2">
-                {/* article img */}
-                <div>
-                  <img src={article2} alt="" className="w-full" />
-                </div>
-                {/* avatar and name */}
-                <div className="flex gap-6 font-beVietnam mt-[15px]">
-                  <div>
-                    <img src={avatar1} alt="" />
-                  </div>
-                  <div className="flex justify-center items-center text-white ">
-                    <p>Jake Will.</p>
-                  </div>
-                </div>
-                {/* date */}
-                <div className="text-white text-[12px] mt-[15px]">
-                  04 June 2023
-                </div>
-                {/* text */}
-                <div className="text-white mt-[15px]">
-                  <h3 className="text-[19px] font-[400] mb-[15px]">
-                    5 Exercises Basketball Players Should Be Using To Develop
-                    Strength
-                  </h3>
-                  <p className="text-[#B5B5B5] text-[12px] text-justify">
-                    This article was written by Jake Willhoite from
-                    Healthlisted.com Strength in basketball isn’t all about a
-                    massive body mass or ripped muscles.
-                  </p>
-                </div>
-              </div>
-              {/* article 3 */}
-              <div className="flex flex-col w-[24rem] gap-2">
-                {/* article img */}
-                <div>
-                  <img src={article3} alt="" className="w-full" />
-                </div>
-                {/* avatar and name */}
-                <div className="flex gap-6 font-beVietnam mt-[15px]">
-                  <div>
-                    <img src={avatar1} alt="" />
-                  </div>
-                  <div className="flex justify-center items-center text-white ">
-                    <p>Jake Will.</p>
-                  </div>
-                </div>
-                {/* date */}
-                <div className="text-white text-[12px] mt-[15px]">
-                  04 June 2023
-                </div>
-                {/* text */}
-                <div className="text-white mt-[15px]">
-                  <h3 className="text-[19px] font-[400] mb-[15px]">
-                    5 Exercises Basketball Players Should Be Using To Develop
-                    Strength
-                  </h3>
-                  <p className="text-[#B5B5B5] text-[12px] text-justify">
-                    This article was written by Jake Willhoite from
-                    Healthlisted.com Strength in basketball isn’t all about a
-                    massive body mass or ripped muscles.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="flex justify-center gap-4  pb-[4rem]">
-            <div className="bg-inherit border border-[#A2DF00] font-beVietnam text-[18px] font-[500] p-3 text-[#A2DF00]">
-              <img src={left} alt="" />
-            </div>
-            <div className="bg-[#A2DF00] font-beVietnam text-[18px] font-[500] p-3">
-              <img src={right} alt="" />
-            </div>
-          </div>
+            ))}
+          </Slider>
+        </div>
+        <div className="flex justify-center items-center gap-4 mt-6">
+          <button
+            onClick={prevSlide}
+            className="bg-inherit border border-[#A2DF00] font-beVietnam text-lg p-3 rounded-md text-[#A2DF00]"
+          >
+            <img src={left} alt="Previous" className="w-full h-4" />
+          </button>
+          <button
+            onClick={nextSlide}
+            className="bg-[#A2DF00] font-beVietnam text-lg p-3 rounded-md"
+          >
+            <img src={right} alt="Next" className="w-full h-4" />
+          </button>
         </div>
       </div>
-      <div className="bg-[#f2f2f2] h-[40vh] flex items-center justify-center pt-[5rem]">
-        <div className="flex w-[90%] max-w-[1500px]  gap-8 justify-between">
+      {/* Footer */}
+      <div className="bg-[#f2f2f2] py-8 px-4 md:px-8 ">
+        <div className="max-w-[1500px] mx-auto flex flex-col md:flex-row mt-10 items-center md:items-start md:justify-between gap-6 md:gap-8">
           {/* Section 1 - Footer Logo */}
-          <div className="w-[15rem] h-[7rem] flex ">
+          <div className="w-[24rem] h-[6rem] flex justify-center md:justify-start">
             <img src={footer_logo} alt="Footer Logo" className="w-full" />
           </div>
 
-          {/* Section 2 - Home */}
-          <div className="flex-1">
-            <h3 className="font-bold text-lg">Home</h3>
-            <ul className="mt-2 space-y-1 list-disc">
-              <li>Courtsite Platform</li>
-              <li>Courtsite For Business</li>
-            </ul>
-          </div>
+          {/* Footer Sections */}
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 w-full gap-6 text-center md:text-left">
+            {/* Section 2 - Home */}
+            <div>
+              <h3 className="font-bold text-lg">Home</h3>
+              <ul className="mt-2 space-y-1">
+                <li>Courtsite Platform</li>
+                <li>Courtsite For Business</li>
+              </ul>
+            </div>
 
-          {/* Section 3 - About Us */}
-          <div className="flex-1">
-            <h3 className="font-bold text-lg">About Us</h3>
-            <ul className="mt-2 space-y-1 list-disc">
-              <li>About Us</li>
-              <li>Our Blog</li>
-              <li>Like Courtsite?</li>
-              <li>Careers</li>
-            </ul>
-          </div>
+            {/* Section 3 - About Us */}
+            <div>
+              <h3 className="font-bold text-lg">About Us</h3>
+              <ul className="mt-2 space-y-1">
+                <li>About Us</li>
+                <li>Our Blog</li>
+                <li>Like Courtsite?</li>
+                <li>Careers</li>
+              </ul>
+            </div>
 
-          {/* Section 4 - Help Centre */}
-          <div className="flex-1">
-            <h3 className="font-bold text-lg">HELP CENTRE</h3>
-            <ul className="mt-2 space-y-1 list-disc ">
-              <li>Frequently Asked Questions (FAQs)</li>
-              <li>Terms of Use</li>
-              <li>Privacy Policy</li>
-              <li>Contact us</li>
-            </ul>
-          </div>
+            {/* Section 4 - Help Centre */}
+            <div>
+              <h3 className="font-bold text-lg">Help Centre</h3>
+              <ul className="mt-2 space-y-1">
+                <li>FAQs</li>
+                <li>Terms of Use</li>
+                <li>Privacy Policy</li>
+                <li>Contact Us</li>
+              </ul>
+            </div>
 
-          {/* Section 5 - Our Partner Centres */}
-          <div className="flex-1">
-            <h3 className="font-bold text-lg">OUR PARTNER CENTRES</h3>
-            <ul className="mt-2 space-y-1">
-              <li>Forum Optimum Badminton Centre</li>
-              <li>X Park PJ South</li>
-              <li>Sportizza - Home of Sports Petaling Jaya</li>
-              <li>and more</li>
-            </ul>
+            {/* Section 5 - Our Partner Centres */}
+            <div>
+              <h3 className="font-bold text-lg">Our Partner Centres</h3>
+              <ul className="mt-2 space-y-1">
+                <li>Forum Optimum Badminton Centre</li>
+                <li>X Park PJ South</li>
+                <li>Sportizza - Home of Sports Petaling Jaya</li>
+                <li>and more</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>

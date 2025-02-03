@@ -1,5 +1,4 @@
-import React from "react";
-import ReactPlayer from "react-player";
+import React, { useRef } from "react";
 import video from "../assets/home-video.webm";
 import Navbar from "../components/Navbar";
 import court from "../assets/book_the_court.png";
@@ -26,71 +25,121 @@ import jacob from "../assets/jacob.png";
 import ryan from "../assets/ryan.png";
 import right from "../assets/ar-right.png";
 import left from "../assets/ar-left.png";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import Footer from "../components/Footer";
+import PropTypes from "prop-types";
+import EventCards from "../Cards/EventCards";
+import cardData from "../Data/CardData";
 
 const LandingPage = () => {
-  return (
-    <div className="landing-page">
-      <div className="w-[100vw] h-full">
-        <ReactPlayer
-          url={video} // The video URL
-          playing={true} // Automatically play the video
-          loop={true} // Loop the video
-          muted={true} // Mute the video
-          width="100%" // Full width
-          height="100vh" // Full height
-          className="video-player"
-        />
-        {/* Transparent black overlay */}
-        <div className="overlay">
-          <Navbar />
-          {/* Hero Content */}
-          <div className="flex flex-col justify-center align-middle items-center mt-18 mb-20">
-            <div className="mb-8">
-              <img src={court} alt="" />
-            </div>
-            <div className="text-white font-beVietnam">
-              <h3 className="text-[25px] font-[600] font-beVietnam text-center">
-                {" "}
-                World’s first AI based facility management <br />
-                software
-              </h3>
-            </div>
+  const sliderRef = React.useRef(null);
 
-            <div className="flex bg-white w-[55%] p-4 rounded-[15px] justify-center mt-14">
-              <div className="flex justify-between w-[80%] text-[20px] font-[500]">
-                <div className="flex items-center gap-4">
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 2, // Show 2 slides on larger screens
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 1024, // Tablets
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+      {
+        breakpoint: 640, // Mobile
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+  };
+
+  const prevSlide = () => {
+    sliderRef.current.slickPrev();
+  };
+
+  const nextSlide = () => {
+    sliderRef.current.slickNext();
+  };
+
+  const testimonials = [
+    {
+      name: "Jacob",
+      location: "Ontario, Canada",
+      image: jacob,
+      feedback:
+        "Lorem ipsum dolor sit amet consectetur. Bibendum quis fringilla odio maecenas magna eu ultrices aliquam egestas.",
+    },
+    {
+      name: "Ryan",
+      location: "Ontario, Canada",
+      image: ryan,
+      feedback:
+        "Lorem ipsum dolor sit amet consectetur. Bibendum quis fringilla odio maecenas magna eu ultrices aliquam egestas.",
+    },
+  ];
+
+  return (
+    <div className="landing-page custom-container ">
+      <div className="relative w-full h-[80vh] sm:h-[90vh] md:h-screen lg:h-[100vh] overflow-hidden">
+        <div className="absolute inset-0 w-full h-full">
+          <video
+            src={video}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute top-0 left-0 w-full h-full object-cover"
+          />
+        </div>
+
+        <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-80 my-auto">
+          <Navbar />
+
+          <div className="flex flex-col justify-center items-center px-4 text-center text-black font-beVietnam mt-16 sm:mt-[10rem]">
+            <div className="mb-4 sm:mb-8">
+              <img src={court} alt="Court" className="w-80 sm:w-full" />
+            </div>
+            <h3 className="text-lg text-white font-beVietnam sm:text-2xl md:text-3xl font-semibold">
+              World’s first AI-based facility management
+              <br />
+              software
+            </h3>
+
+            <div className="flex flex-col md:flex-row bg-white w-[60%] sm:w-[80%] md:w-[80%] p-4 rounded-[15px] justify-center mt-10 sm:mt-14">
+              <div className="grid grid-col-1 items-center text-center sm:grid-cols-5 gap-6 text-sm sm:text-lg md:text-[20px] font-medium w-full">
+                <div className="flex justify-center items-center gap-6">
                   Categories
-                  <div className=" flex items-center">
-                    <img src={drop} alt="" className="mt-1" />
-                  </div>
+                  <img src={drop} alt="" className="mt-1 flex items-center" />
                 </div>
                 <div className="hidden sm:flex justify-center items-center">
-                  <div className="border-[.1px] h-[80%] border-[#34343499] border-opacity-60"></div>
+                  <div className="border-l border-gray-400 h-10"></div>
                 </div>
-                <div className="flex items-center gap-4">
-                  Choose Sports{" "}
-                  <div className=" flex items-center">
-                    <img src={drop} alt="" className="mt-1" />
-                  </div>{" "}
+                <div className="flex justify-center items-center gap-6">
+                  Choose Sports
+                  <img src={drop} alt="" className="mt-1 flex items-center" />
                 </div>
                 <div className="hidden sm:flex justify-center items-center">
-                  <div className="border-[.1px] h-[80%] border-[#34343499] border-opacity-60"></div>
+                  <div className="border-l border-gray-400 h-10"></div>
                 </div>
-                <div className="flex items-center gap-4">
-                  Enter Location{" "}
-                  <div className=" flex items-center">
-                    <img src={drop} alt="" className="mt-1" />
-                  </div>
+                <div className="flex justify-center items-center gap-6">
+                  Enter Location
+                  <img src={drop} alt="" className="mt-1 flex items-center" />
                 </div>
               </div>
             </div>
-            <div>
-              <button className="text-[19px] text-[#A2E000] font-[900] font-beVietnam flex justify-center items-center border-[1px] border-[#FFFFFF99] border-opacity-60 rounded-[15px] p-2 gap-4 mt-20">
-                <img src={lockin} alt="" className="w-7 h-8" />
-                <div className="mb-1 pr-4">Lock It In!</div>
-              </button>
-            </div>
+
+            <button className="text-[19px] text-[#A2E000] font-[900] font-beVietnam flex justify-center items-center border-[1px] border-[#FFFFFF99] border-opacity-60 rounded-[15px] p-2 gap-4 mt-20">
+              <img src={lockin} alt="" className="w-7 h-8" />
+              <div className="mb-1 pr-4">Lock It In!</div>
+            </button>
           </div>
         </div>
       </div>
@@ -102,87 +151,91 @@ const LandingPage = () => {
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          height: "80vh", // Adjust this as needed
+          height: "100vh",
           width: "100%",
         }}
       >
-        <div className="flex flex-col justify-center items-center align-middle ">
-          <div className=" flex justify-center items-center flex-col mt-8">
-            <h2 className="uppercase text-white text-[42px] font-[700]">
-              Smarter <span className="text-[#A2DF00]">Scheduling</span> ,
+        <div className="flex flex-col justify-center items-center  px-8 sm:px-8 h-full">
+          <div className="text-center mt-2">
+            <h2 className="uppercase text-white text-2xl sm:text-4xl font-bold leading-tight">
+              Smarter <span className="text-[#A2DF00]">Scheduling</span>,
               Maximum <span className="text-[#A2DF00]">Efficiency</span>
             </h2>
-            <p className="text-[22px] font-[500] text-center font-beVietnam text-white mt-8 mb-8">
+            <p className="text-base sm:text-lg md:text-xl font-medium text-white mt-4 sm:mt-8 mb-4 sm:mb-8">
               AI-powered dynamic scheduling that adapts to your facility’s needs
-              in <br /> real-time and Effortlessly manage court bookings.
+              in real-time and Effortlessly manage court bookings.
             </p>
           </div>
-          <div className="h-[96] flex gap-6 pl-8 pr-8 mt-14">
-            {/* Football */}
-            <div className="flex flex-col gap-4 justify-between">
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-10 mt-6 sm:mt-14">
+            <div className="flex flex-col gap-4 items-center">
               <div
+                className="h-28 sm:h-28 rounded-[10px] flex justify-center items-center w-full p-4"
                 style={{
                   background:
                     "linear-gradient(151.42deg, #A2DF00 15.43%, #EEFFC0 115.27%)",
                 }}
-                className="h-32 rounded-[10px] flex text-center justify-center items-center"
               >
-                <h2 className="text-[42px] font-[700] p-4">FOOTBALL</h2>
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center">
+                  FOOTBALL
+                </h2>
               </div>
-              <div>
-                <img src={football} alt="" />
-              </div>
+              <img
+                src={football}
+                alt="Football"
+                className="max-w-full h-auto"
+              />
             </div>
-            {/* BasketBall */}
-            <div className="flex flex-col gap-4 justify-between">
-              <div>
-                <img src={basketball} alt="" />
-              </div>
+
+            <div className="flex flex-col gap-4 items-center">
+              <img
+                src={basketball}
+                alt="Basketball"
+                className="max-w-full h-auto"
+              />
               <div
+                className="h-[10.7rem]  rounded-[10px] flex justify-center items-center w-full p-4"
                 style={{
                   background:
                     "linear-gradient(151.42deg, #A2DF00 15.43%, #EEFFC0 115.27%)",
                 }}
-                className="h-44 rounded-[10px] flex text-center justify-center items-center"
               >
-                {" "}
-                <h2 className="text-[42px] font-[700] p-4">
-                  BASKET <br />
-                  BALL
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center">
+                  BASKET <br /> BALL
                 </h2>
               </div>
             </div>
-            {/* Cricket */}
-            <div className="flex flex-col gap-4">
+
+            <div className="flex flex-col gap-4 items-center">
               <div
+                className=" h-28 sm:h-28 rounded-[10px] flex justify-center items-center w-full p-4"
                 style={{
                   background:
                     "linear-gradient(151.42deg, #A2DF00 15.43%, #EEFFC0 115.27%)",
                 }}
-                className="h-32 rounded-[10px] flex text-center justify-center items-center"
               >
-                {" "}
-                <h2 className="text-[42px] font-[700] p-4">CRICKET</h2>
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center">
+                  CRICKET
+                </h2>
               </div>
-              <div>
-                <img src={cricket} alt="" />
-              </div>
+              <img src={cricket} alt="Cricket" className="max-w-full h-auto" />
             </div>
-            {/* Table Tennis */}
-            <div className="flex flex-col gap-4">
-              <div className="h-auto">
-                <img src={table} alt="" />
-              </div>
+
+            <div className="flex flex-col gap-4 items-center">
+              <img
+                src={table}
+                alt="Table Tennis"
+                className="max-w-full h-auto"
+              />
               <div
+                className="h-28 sm:h-28 rounded-[10px] flex justify-center items-center w-full p-4"
                 style={{
                   background:
                     "linear-gradient(151.42deg, #A2DF00 15.43%, #EEFFC0 115.27%)",
                 }}
-                className="h-32 rounded-[10px] flex text-center justify-center items-center"
               >
-                {" "}
-                <h2 className="text-[42px] font-[700] p-4">
-                  TABLE <br /> TENNNIS
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center">
+                  TABLE <br /> TENNIS
                 </h2>
               </div>
             </div>
@@ -190,24 +243,30 @@ const LandingPage = () => {
         </div>
       </div>
       {/* Member Experience */}
-      <div className="h-[70vh] bg-black flex justify-center align-middle items-center ">
-        <div className=" pl-[14rem] pr-[14rem] flex gap-8">
-          <div className="p-6 w-1/2">
-            <img src={plaza} alt="" className="w-full" />
+      <div className="md:h-[60vh] min-h-full bg-black flex justify-center items-center py-10 ">
+        <div className=" w-full max-w-8xl px-4 sm:px-8 lg:px-16 flex flex-col-reverse md:flex-row items-center gap-8">
+          <div className="w-full md:w-1/2 p-5 flex justify-center">
+            <img
+              src={plaza}
+              alt=""
+              className="w-full max-w-sm sm:max-w-md md:max-w-full h-auto"
+            />
           </div>
-          <div className="p-4 w-1/2">
-            <div className="flex  flex-col justify-between">
-              <h2 className="uppercase text-[42px] font-[700] text-white mb-[15px]">
-                <span className="text-[#A2DF00]">Personalized</span> Member{" "}
-                <br /> Experiences
-              </h2>
-              <p className="text-[#FFFFFFCC] text-opacity-80 text-[22px] font-[500] w-[100%] mb-[15px]">
-                AI will Engage and retain members with insights, activity
-                tracking, and tailored recommendations by <br /> advanced
-                analytics.
-              </p>
-              <img src={asset} alt="" />
-            </div>
+          <div className="p-5 w-full md:w-1/2">
+            <h2 className="uppercase text-center sm:text-left text-[42px] font-[700] text-white mb-4">
+              <span className="text-[#A2DF00]">Personalized</span> Member <br />{" "}
+              Experiences
+            </h2>
+            <p className="text-white text-center sm:text-left text-opacity-80 text-base sm:text-lg md:text-xl font-medium mb-6">
+              AI will Engage and retain members with insights, activity
+              tracking, and tailored recommendations by <br /> advanced
+              analytics.
+            </p>
+            <img
+              src={asset}
+              alt=""
+              className="w-full max-w-[100%] sm:max-w-full md:max-w-full h-auto"
+            />
           </div>
         </div>
       </div>
@@ -218,33 +277,33 @@ const LandingPage = () => {
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          height: "90vh", // Adjust this as needed
+          Height: "80vh",
           width: "100%",
         }}
       >
-        <div className="flex flex-col justify-center items-center align-middle">
-          <div className="text-center mt-[5rem] ">
-            <h2 className="uppercase text-[42px] font-[700] text-white mb-[15px] font-beVietnam">
+        <div className="flex flex-col justify-center items-center py-[4rem] align-middle h-full px-4 sm:px-8 md:px-16 ">
+          <div className="text-center mt-10 sm:mt-10 md:mt-10 ">
+            <h2 className="uppercase text-[32px] sm:text-[42px] font-[700] text-white mb-[15px] font-beVietnam">
               <span className="text-[#A2DF00]">Data-Driven</span> Decisions at
               Your Fingertips
             </h2>
-            <p className="text-[#FFFFFFCC] text-opacity-80 text-[22px] font-[400] w-[100%] mt-[2rem]">
+            <p className="text-[#FFFFFFCC] text-opacity-80 text-[18px] sm:text-[22px] font-[400] w-full mt-[2rem]">
               Unleash the power of dashboards—get actionable analytics
             </p>
-            <p className="text-[#FFFFFFCC] text-opacity-80 text-[22px] font-[400] w-[100%] mb-[15px]">
+            <p className="text-[#FFFFFFCC] text-opacity-80 text-[18px] sm:text-[22px] font-[400] w-full mb-[15px]">
               for members and clubs, from performance metrics to revenue
               insights.
             </p>
           </div>
-          <div className="flex gap-4 w-[80%] justify-between align-middle items-center mt-[5rem]">
-            <div>
-              <img src={quick} alt="" />
+          <div className="flex flex-wrap gap-6 justify-center items-center mt-10 sm:mt-16">
+            <div className="w-1/2 sm:w-1/4 md:w-1/4">
+              <img src={top_rated} alt="" className="w-full h-auto" />
             </div>
-            <div>
-              <img src={top_rated} alt="" />
+            <div className="w-1/2 sm:w-1/4 md:w-1/4">
+              <img src={weather} alt="" className="w-full h-auto" />
             </div>
-            <div>
-              <img src={weather} alt="" />
+            <div className="w-1/2 sm:w-1/4 md:w-1/4">
+              <img src={quick} alt="" className="w-full h-auto" />
             </div>
           </div>
         </div>
@@ -256,267 +315,121 @@ const LandingPage = () => {
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          height: "110vh", // Adjust this as needed
+          minHeight: "max-content",
           width: "100%",
+          padding: "2rem",
         }}
       >
-        <div>
-          <div className="text-center pt-[3rem]">
-            <h2 className="uppercase text-[42px] font-[700] text-white mb-[15px] font-beVietnam mt=[5rem]">
-              seamless
-              <span className="text-[#A2DF00]">event</span> management
-            </h2>
-            <p className="text-[#FFFFFFCC] text-opacity-80 text-[22px] font-[400] w-[100%] mt-[2rem]">
-              Plan tournaments like a pro—AI-driven scheduling, team formation,
-              and
-            </p>
-            <p className="text-[#FFFFFFCC] text-opacity-80 text-[22px] font-[400] w-[100%] mb-[15px]">
-              live performance analytics for a next-level experience.
-            </p>
-          </div>
-          <div className="parent-container flex flex-wrap gap-12 pl-[8rem] pr-[8rem] mt-[4rem]">
-            {/* Top Row */}
-            <div className="flex w-full gap-12 justify-center">
-              {/* Top Left Div */}
-              <div className="flex-2 bg-inherit">
-                <div className="w-full">
-                  <img src={b_complex} alt="" className="w-full mb-[15px]" />
-                </div>
-                <div>
-                  <h3 className="text-[16px] font-[600] font-beVietnam text-white">
-                    BasketBall Sports Complex
-                  </h3>
-                  <p className="text-[#98989A] font-[400]">Ontario</p>
-                </div>
-                <div className="flex flex-row mt-[1rem]">
-                  <div className="flex w-1/2 gap-6">
-                    <div className="flex bg-[#262626] pt-1 pl-3 pr-3 pb-1 rounded-[14px] gap-2 justify-center items-center align-middle border-[1px] border-opacity-10 border-white">
-                      <img src={heart} alt="" />
-                      <p className="text-[#98989A]">2.2k</p>
-                    </div>
-                    <div className="flex justify-center items-center align-middle gap-2 pt-1 pl-3 pr-3 pb-1 rounded-[14px] bg-[#262626] border-[1px] border-opacity-10 border-white">
-                      <img src={share} alt="" />
-                      <p className="text-[#98989A]">60</p>
-                    </div>
-                  </div>
-                  <div className="flex w-1/2 bg-[#262626] pt-2 pl-3 pr-3 pb-2 rounded-[10px] justify-center items-center align-middle gap-2 border-[1px] border-opacity-10 border-white">
-                    <button>Book Now</button>{" "}
-                    <img src={go} alt="" className="w-5 h-5" />
-                  </div>
-                </div>
-              </div>
-              {/* Top Middle Div */}{" "}
-              <div className="flex-2 bg-inherit">
-                <div className="w-full">
-                  <img src={b_cricket} alt="" className="w-full mb-[15px]" />
-                </div>
-                <div>
-                  <h3 className="text-[16px] font-[600] font-beVietnam text-white">
-                    BasketBall Sports Complex
-                  </h3>
-                  <p className="text-[#98989A] font-[400]">Ontario</p>
-                </div>
-                <div className="flex flex-row mt-[1rem]">
-                  <div className="flex w-1/2 gap-6">
-                    <div className="flex bg-[#262626] pt-1 pl-3 pr-3 pb-1 rounded-[14px] gap-2 justify-center items-center align-middle border-[1px] border-opacity-10 border-white">
-                      <img src={heart} alt="" />
-                      <p className="text-[#98989A]">2.2k</p>
-                    </div>
-                    <div className="flex justify-center items-center align-middle gap-2 pt-1 pl-3 pr-3 pb-1 rounded-[14px] bg-[#262626] border-[1px] border-opacity-10 border-white">
-                      <img src={share} alt="" />
-                      <p className="text-[#98989A]">60</p>
-                    </div>
-                  </div>
-                  <div className="flex w-1/2 bg-[#262626] pt-2 pl-3 pr-3 pb-2 rounded-[10px] justify-center items-center align-middle gap-2 border-[1px] border-opacity-10 border-white">
-                    <button>Book Now</button>{" "}
-                    <img src={go} alt="" className="w-5 h-5" />
-                  </div>
-                </div>
-              </div>
-              {/* Top Right Div */}{" "}
-              <div className="flex-2 bg-inherit">
-                <div className="w-full">
-                  <img src={b_football} alt="" className="w-full mb-[15px]" />
-                </div>
-                <div>
-                  <h3 className="text-[16px] font-[600] font-beVietnam text-white">
-                    BasketBall Sports Complex
-                  </h3>
-                  <p className="text-[#98989A] font-[400]">Ontario</p>
-                </div>
-                <div className="flex flex-row mt-[1rem]">
-                  <div className="flex w-1/2 gap-6">
-                    <div className="flex bg-[#262626] pt-1 pl-3 pr-3 pb-1 rounded-[14px] gap-2 justify-center items-center align-middle border-[1px] border-opacity-10 border-white">
-                      <img src={heart} alt="" />
-                      <p className="text-[#98989A]">2.2k</p>
-                    </div>
-                    <div className="flex justify-center items-center align-middle gap-2 pt-1 pl-3 pr-3 pb-1 rounded-[14px] bg-[#262626] border-[1px] border-opacity-10 border-white">
-                      <img src={share} alt="" />
-                      <p className="text-[#98989A]">60</p>
-                    </div>
-                  </div>
-                  <div className="flex w-1/2 bg-[#262626] pt-2 pl-3 pr-3 pb-2 rounded-[10px] justify-center items-center align-middle gap-2 border-[1px] border-opacity-10 border-white">
-                    <button>Book Now</button>{" "}
-                    <img src={go} alt="" className="w-5 h-5" />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Row */}
-            <div className="flex w-full gap-12 justify-center">
-              {/* Top Left Div */}
-              <div className="flex-2 bg-inherit">
-                <div className="w-full">
-                  <img src={b_complex} alt="" className="w-full mb-[15px]" />
-                </div>
-                <div>
-                  <h3 className="text-[16px] font-[600] font-beVietnam text-white">
-                    BasketBall Sports Complex
-                  </h3>
-                  <p className="text-[#98989A] font-[400]">Ontario</p>
-                </div>
-                <div className="flex flex-row mt-[1rem]">
-                  <div className="flex w-1/2 gap-6">
-                    <div className="flex bg-[#262626] pt-1 pl-3 pr-3 pb-1 rounded-[14px] gap-2 justify-center items-center align-middle border-[1px] border-opacity-10 border-white">
-                      <img src={heart} alt="" />
-                      <p className="text-[#98989A]">2.2k</p>
-                    </div>
-                    <div className="flex justify-center items-center align-middle gap-2 pt-1 pl-3 pr-3 pb-1 rounded-[14px] bg-[#262626] border-[1px] border-opacity-10 border-white">
-                      <img src={share} alt="" />
-                      <p className="text-[#98989A]">60</p>
-                    </div>
-                  </div>
-                  <div className="flex w-1/2 bg-[#262626] pt-2 pl-3 pr-3 pb-2 rounded-[10px] justify-center items-center align-middle gap-2 border-[1px] border-opacity-10 border-white">
-                    <button>Book Now</button>{" "}
-                    <img src={go} alt="" className="w-5 h-5" />
-                  </div>
-                </div>
-              </div>
-              {/* Top Middle Div */}{" "}
-              <div className="flex-2 bg-inherit">
-                <div className="w-full">
-                  <img src={b_cricket} alt="" className="w-full mb-[15px]" />
-                </div>
-                <div>
-                  <h3 className="text-[16px] font-[600] font-beVietnam text-white">
-                    BasketBall Sports Complex
-                  </h3>
-                  <p className="text-[#98989A] font-[400]">Ontario</p>
-                </div>
-                <div className="flex flex-row mt-[1rem]">
-                  <div className="flex w-1/2 gap-6">
-                    <div className="flex bg-[#262626] pt-1 pl-3 pr-3 pb-1 rounded-[14px] gap-2 justify-center items-center align-middle border-[1px] border-opacity-10 border-white">
-                      <img src={heart} alt="" />
-                      <p className="text-[#98989A]">2.2k</p>
-                    </div>
-                    <div className="flex justify-center items-center align-middle gap-2 pt-1 pl-3 pr-3 pb-1 rounded-[14px] bg-[#262626] border-[1px] border-opacity-10 border-white">
-                      <img src={share} alt="" />
-                      <p className="text-[#98989A]">60</p>
-                    </div>
-                  </div>
-                  <div className="flex w-1/2 bg-[#262626] pt-2 pl-3 pr-3 pb-2 rounded-[10px] justify-center items-center align-middle gap-2 border-[1px] border-opacity-10 border-white">
-                    <button>Book Now</button>{" "}
-                    <img src={go} alt="" className="w-5 h-5" />
-                  </div>
-                </div>
-              </div>
-              {/* Top Right Div */}{" "}
-              <div className="flex-2 bg-inherit">
-                <div className="w-full">
-                  <img src={b_football} alt="" className="w-full mb-[15px]" />
-                </div>
-                <div>
-                  <h3 className="text-[16px] font-[600] font-beVietnam text-white">
-                    BasketBall Sports Complex
-                  </h3>
-                  <p className="text-[#98989A] font-[400]">Ontario</p>
-                </div>
-                <div className="flex flex-row mt-[1rem]">
-                  <div className="flex w-1/2 gap-6">
-                    <div className="flex bg-[#262626] pt-1 pl-3 pr-3 pb-1 rounded-[14px] gap-2 justify-center items-center align-middle border-[1px] border-opacity-10 border-white">
-                      <img src={heart} alt="" />
-                      <p className="text-[#98989A]">2.2k</p>
-                    </div>
-                    <div className="flex justify-center items-center align-middle gap-2 pt-1 pl-3 pr-3 pb-1 rounded-[14px] bg-[#262626] border-[1px] border-opacity-10 border-white">
-                      <img src={share} alt="" />
-                      <p className="text-[#98989A]">60</p>
-                    </div>
-                  </div>
-                  <div className="flex w-1/2 bg-[#262626] pt-2 pl-3 pr-3 pb-2 rounded-[10px] justify-center items-center align-middle gap-2 border-[1px] border-opacity-10 border-white">
-                    <button>Book Now</button>{" "}
-                    <img src={go} alt="" className="w-5 h-5" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="flex justify-center items-center align-middle mt-[4rem] mb-[2rem]  ">
-            <div className="bg-black flex pt-1 pb-1  pl-6 pr-6 rounded-[2.5rem] gap-4 border-[1px] border-white border-opacity-30">
-              <img src={lockin} alt="" />
-              <button className="text-[#A2E000] font-[900] text-[19px] text-center">
-                Explore
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* TESTIMONIALS */}
-      <div className="h-[70vh] bg-black">
-        <div className="text-center pt-[3rem]">
-          <h2 className="uppercase text-[42px] font-[700] text-white mb-[15px] font-beVietnam mt=[5rem]">
-            our <span className="text-[#A2DF00]">Testimonials</span>
+        <div className="text-center">
+          <h2 className="uppercase text-[32px] sm:text-[32px] md:text-[42px] font-[700] text-white mb-[15px] font-beVietnam mt-[5rem]">
+            seamless
+            <span className="text-[#A2DF00]"> event</span> management
           </h2>
-          <p className="text-[#FFFFFFCC] text-opacity-80 text-[22px] font-[400] w-[100%] mt-[2rem]">
-            Here are some of the testimonials of our users.
+          <p className="text-[#FFFFFFCC] text-opacity-80 text-[16px] sm:text-[18px] md:text-[22px] font-[400] w-full md:w-[80%] lg:w-[60%] mx-auto mt-[2rem]">
+            Plan tournaments like a pro—AI-driven scheduling, team formation,
+            and
+          </p>
+          <p className="text-[#FFFFFFCC] text-opacity-80 text-[16px] sm:text-[18px] md:text-[22px] font-[400] w-full md:w-[80%] lg:w-[60%] mx-auto mb-[15px]">
+            live performance analytics for a next-level experience.
           </p>
         </div>
-        <div className="pl-[6rem] pr-[6rem] mt-[2rem] flex flex-col justify-center items-center w-[100vw] ">
-          <div className="flex gap-8 w-full max-w-7xl justify-between">
-            {/* First Box */}
-            <div className="w-1/2 flex gap-1 h-[18rem]">
-              <div className="w-[30%] p-6">
-                <img src={jacob} alt="Jacob" />
-              </div>
-              <div className="w-[70%] text-white p-6">
-                <h4 className="text-[22px] mb-[15px]">Jacob</h4>
-                <p className="w-full text-[12px] font-[400] text-[#9C9C9C] mb-[15px]">
-                  Ontario, Canada
-                </p>
-                <p className="text-[16px] font-[300] mb-[15px]">
-                  Lorem ipsum dolor sit amet consectetur. Bibendum quis
-                  fringilla odio maecenas magna eu ultrices aliquam egestas.
-                </p>
-              </div>
-            </div>
 
-            {/* Second Box */}
-            <div className="w-1/2 flex gap-1 h-[18rem]">
-              <div className="w-[30%] p-6">
-                <img src={ryan} alt="Jacob" />
+        <div className="parent-container flex flex-wrap gap-4 md:gap-6 lg:gap-12 px-4 md:px-[2rem]">
+          {/* 1st row */}
+          <div className="flex flex-col md:flex-row w-full gap-4 md:gap-6 lg:gap-12 justify-center">
+            {cardData.slice(0, 3).map((card, index) => (
+              <div key={index} className="w-full sm:w-1/2 lg:w-1/3">
+                <EventCards
+                  image={card.image}
+                  title={card.title}
+                  location={card.location}
+                  likes={card.likes}
+                  shares={card.shares}
+                />
               </div>
-              <div className="w-[70%] text-white p-6">
-                <h4 className="text-[22px] mb-[15px]">Ryan</h4>
-                <p className="w-full text-[12px] font-[400] text-[#9C9C9C] mb-[15px]">
-                  Ontario, Canada
-                </p>
-                <p className="text-[16px] font-[300] mb-[15px]">
-                  Lorem ipsum dolor sit amet consectetur. Bibendum quis
-                  fringilla odio maecenas magna eu ultrices aliquam egestas.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
-          <div className="flex  gap-4">
-            <div className="bg-inherit border border-[#A2DF00] font-beVietnam text-[18px] font-[500] p-3 pl-6 pr-6 rounded-md text-[#A2DF00]">
-              <img src={left} alt="" />
-            </div>
-            <div className="bg-[#A2DF00] font-beVietnam text-[18px] font-[500] p-3 pl-6 pr-6 rounded-md">
-              <img src={right} alt="" />
-            </div>
+          {/* 2nd row */}
+          <div className="flex flex-col md:flex-row w-full gap-4 md:gap-6 lg:gap-12 justify-center mt-6 md:mt-12">
+            {cardData.slice(3, 6).map((card, index) => (
+              <div key={index} className="w-full sm:w-1/2 lg:w-1/3">
+                <EventCards
+                  image={card.image}
+                  title={card.title}
+                  location={card.location}
+                  likes={card.likes}
+                  shares={card.shares}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex justify-center items-center align-middle mt-[4rem]">
+          <div className="bg-black flex pt-1 pb-1 pl-4 pr-4 rounded-[2.5rem] gap-4 border-[1px] border-white border-opacity-30">
+            <img src={lockin} alt="lockin" />
+            <button className="text-[#A2E000] font-[900] text-[19px] text-center">
+              Explore
+            </button>
           </div>
         </div>
       </div>
+      {/* Testimonials Section */}
+      <div className="bg-black p-10 md:px-12">
+        <div className="text-center mb-10">
+          <h2 className="uppercase text-[28px] sm:text-[32px] md:text-[42px] font-[700] text-white mb-[10px] font-beVietnam">
+            our <span className="text-[#A2DF00]">Testimonials</span>
+          </h2>
+          <p className="text-[#FFFFFFCC] text-opacity-80 text-[16px] sm:text-[18px] md:text-[22px] font-[400] max-w-2xl mx-auto">
+            Here are some of the testimonials from our users.
+          </p>
+        </div>
+
+        <div className="w-full max-w-8xl mx-auto">
+          <Slider ref={sliderRef} {...settings}>
+            {testimonials.map((testimonial, index) => (
+              <div key={index} className="px-3">
+                <div className="flex flex-col sm:flex-row justify-center items-center p-6 rounded-lg text-white">
+                  <div className="w-[60%] sm:w-[10rem] sm:h-[10rem] md:w-[12rem] md:h-[12rem] overflow-hidden">
+                    <img
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="mt-4 sm:mt-0 sm:ml-8 text-center sm:text-left">
+                    <h4 className="text-[18px] sm:text-[20px] md:text-[22px] font-semibold">
+                      {testimonial.name}
+                    </h4>
+                    <p className="text-[12px] sm:text-[14px] font-[400] text-[#9C9C9C]">
+                      {testimonial.location}
+                    </p>
+                    <p className="text-[14px] sm:text-[16px] md:text-[18px] font-[300] mt-2 max-w-md">
+                      {testimonial.feedback}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </Slider>
+        </div>
+
+        <div className="flex justify-center items-center gap-4 mt-6">
+          <button
+            onClick={prevSlide}
+            className="bg-inherit border border-[#A2DF00] font-beVietnam text-lg p-3 rounded-md text-[#A2DF00]"
+          >
+            <img src={left} alt="Previous" className="w-full h-4" />
+          </button>
+          <button
+            onClick={nextSlide}
+            className="bg-[#A2DF00] font-beVietnam text-lg p-3 rounded-md"
+          >
+            <img src={right} alt="Next" className="w-full h-4" />
+          </button>
+        </div>
+      </div>
+
       {/* Footer */}
       <Footer />
     </div>
