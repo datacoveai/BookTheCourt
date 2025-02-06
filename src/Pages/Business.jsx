@@ -20,6 +20,7 @@ import open from "../assets/business/open.png";
 import safer from "../assets/business/Safer.png";
 import cloud from "../assets/business/cloud.png";
 import faster from "../assets/business/Faster.png";
+import toast from "react-hot-toast";
 import Footer from "../components/Footer";
 import location from "../assets/business/location.png";
 import mobile from "../assets/business/mobile.png";
@@ -32,9 +33,34 @@ import contact_phone from "../assets/business/contact_phone.png";
 import t_ball from "../assets/business/t-ball.png";
 import t_bat from "../assets/business/b-bat.png";
 import facilities from "../assets/business/facilities.jpeg";
+import PhoneInput from "react-phone-input-2";
+import emailjs from "@emailjs/browser";
+import "react-phone-input-2/lib/style.css";
 
 const Business = () => {
   const [openSections, setOpenSections] = useState([false, false]);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [phoneNumber, setPhoneNumber] = useState({
+    number: "",
+    countryCode: "",
+    countryName: "",
+  });
+  const handlePhoneNumber = (e, value, name) => {
+    // console.log(value?.dialCode);
+    const countryCode = value?.dialCode;
+    const number = e;
+    const countryName = value.name;
+    setPhoneNumber({
+      number: number,
+      countryCode: countryCode,
+      countryName: countryName,
+    });
+  };
 
   const toggleSection = (index) => {
     setOpenSections((prevSections) => {
@@ -42,6 +68,45 @@ const Business = () => {
       newSections[index] = !newSections[index];
       return newSections;
     });
+  };
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+
+    const serviceId = "service_sr8tcxi";
+    const templateId = "template_e38eucg";
+    const publicKey = "LQzQ5Wq6NWU_oVEUC";
+
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      from_country: phoneNumber.countryName,
+      phone_number: phoneNumber.number,
+      subject: formData.subject,
+      message: formData.message,
+      to_name: "DatacoveAI",
+    };
+
+    emailjs
+      .send(serviceId, templateId, templateParams, publicKey)
+      .then((response) => {
+        toast.success("Message sent successfully");
+        setFormData({
+          fullName: "",
+          email: "",
+          phoneNumber: "",
+          field: "",
+          subject: {
+            demo: false,
+            brandIdentity: false,
+          },
+          message: "",
+        });
+      })
+      .catch((error) => {
+        console.error("Error sending email", error);
+        toast.error("Failed to send the message. Please try again.");
+      });
   };
 
   return (
@@ -682,7 +747,8 @@ const Business = () => {
                   </div>
                   <input
                     type="text"
-                    className="bg-transparent border-b border-opacity-30 border-white text-white w-full py-2"
+                    value={formData.name}
+                    className="bg-transparent border-b border-opacity-30 border-white text-white w-full py-2 focus:border-none focus:outline-none"
                     placeholder="Enter your name"
                   />
                 </div>
@@ -696,7 +762,8 @@ const Business = () => {
                   </div>
                   <input
                     type="text"
-                    className="bg-transparent border-b border-opacity-30 border-white text-white w-full py-2"
+                    value={formData.email}
+                    className="bg-transparent border-b border-opacity-30 border-white text-white w-full py-2 focus:border-none focus:outline-none"
                     placeholder="Enter your Email"
                   />
                 </div>
@@ -704,17 +771,51 @@ const Business = () => {
 
               <div className="flex flex-col md:flex-row justify-between gap-4">
                 <div className="w-full md:w-1/2">
-                  <div className="flex items-center gap-4">
-                    <img src={contact_phone} alt="" />
-                    <label className="text-white font-[400] text-[14px] sm:text-[16px]">
-                      Phone
-                    </label>
+                  <div className="flex  gap-1 flex-col">
+                    <div className="flex gap-6">
+                      <img src={contact_phone} alt="" />
+                      <label className="font-beVietnam text-[16px] flex flex-col text-white ">
+                        Phone:
+                      </label>
+                    </div>
+
+                    <div className="flex flex-col  ">
+                      <PhoneInput
+                        country={"ca"}
+                        value={phoneNumber.number}
+                        onChange={handlePhoneNumber}
+                        inputProps={{ required: true }}
+                        name="phoneNumber"
+                        buttonClass={{
+                          border: "none",
+                        }}
+                        dropdownClass="custom-dropdown-class"
+                        searchClass="custom-search-class"
+                        containerStyle={{
+                          color: "white",
+                          marginBottom: "10px",
+                          marginTop: "5px",
+                        }}
+                        inputStyle={{
+                          backgroundColor: "black",
+                          border: "none",
+                          broder: "1px solid black",
+                          borderBottomColor: "grey",
+                          marginLeft: "2px",
+                          color: "white",
+                          width: "95%",
+                        }}
+                        buttonStyle={{
+                          backgroundColor: "white",
+                        }}
+                        dropdownStyle={{
+                          backgroundColor: "black",
+                          border: "none",
+                          color: "white",
+                        }}
+                      />
+                    </div>
                   </div>
-                  <input
-                    type="number"
-                    className="bg-transparent border-b border-opacity-30 border-white text-white w-full py-2"
-                    placeholder="Enter your phone"
-                  />
                 </div>
                 <div className="w-full md:w-1/2">
                   <div className="flex items-center gap-4">
@@ -725,7 +826,8 @@ const Business = () => {
                   </div>
                   <input
                     type="text"
-                    className="bg-transparent border-b border-opacity-30 border-white text-white w-full py-2"
+                    value={formData.subject}
+                    className="bg-transparent border-b border-opacity-30 border-white text-white w-full py-2 focus:border-none focus:outline-none"
                     placeholder="Enter your subject"
                   />
                 </div>
@@ -738,8 +840,9 @@ const Business = () => {
                   </label>
                 </div>
                 <textarea
-                  className="bg-transparent border-b border-opacity-30 border-white text-white w-full py-2"
+                  className="bg-transparent border-b border-opacity-30 border-white text-white w-full py-2 focus:border-none focus:outline-none"
                   rows="4"
+                  value={formData.message}
                 />
               </div>
 
