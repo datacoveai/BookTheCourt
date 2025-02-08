@@ -39,17 +39,28 @@ import "react-phone-input-2/lib/style.css";
 
 const Business = () => {
   const [openSections, setOpenSections] = useState([false, false]);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
   const [phoneNumber, setPhoneNumber] = useState({
     number: "",
     countryCode: "",
     countryName: "",
   });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+    isChecked: false,
+  });
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
   const handlePhoneNumber = (e, value, name) => {
     // console.log(value?.dialCode);
     const countryCode = value?.dialCode;
@@ -62,19 +73,27 @@ const Business = () => {
     });
   };
 
-  const toggleSection = (index) => {
-    setOpenSections((prevSections) => {
-      const newSections = [...prevSections];
-      newSections[index] = !newSections[index];
-      return newSections;
-    });
-  };
-
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    const serviceId = "service_sr8tcxi";
-    const templateId = "template_e38eucg";
+    // Check if any required field is empty
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.subject ||
+      !formData.message
+    ) {
+      toast.error("All fields are required");
+      return; // Stop execution if there's an error
+    }
+
+    if (!formData.isChecked) {
+      toast.error("You must agree to the terms before submitting.");
+      return; // Stop execution if there's an error
+    }
+
+    const serviceId = "service_3aui85v";
+    const templateId = "template_xm8gkfl";
     const publicKey = "LQzQ5Wq6NWU_oVEUC";
 
     const templateParams = {
@@ -92,21 +111,25 @@ const Business = () => {
       .then((response) => {
         toast.success("Message sent successfully");
         setFormData({
-          fullName: "",
+          name: "",
           email: "",
-          phoneNumber: "",
-          field: "",
-          subject: {
-            demo: false,
-            brandIdentity: false,
-          },
+          subject: "",
           message: "",
+          isChecked: false,
         });
       })
       .catch((error) => {
         console.error("Error sending email", error);
         toast.error("Failed to send the message. Please try again.");
       });
+  };
+
+  const toggleSection = (index) => {
+    setOpenSections((prevSections) => {
+      const newSections = [...prevSections];
+      newSections[index] = !newSections[index];
+      return newSections;
+    });
   };
 
   return (
@@ -737,133 +760,143 @@ const Business = () => {
             </div>
 
             <div className="w-full lg:w-[40%] flex flex-col gap-10">
-              <div className="flex flex-col md:flex-row justify-between gap-4">
-                <div className="w-full md:w-1/2">
-                  <div className="flex items-center gap-4">
-                    <img src={contact_name} alt="" />
-                    <label className="text-white font-[400] text-[14px] sm:text-[16px]">
-                      Name
-                    </label>
-                  </div>
-                  <input
-                    type="text"
-                    value={formData.name}
-                    className="bg-transparent border-b border-opacity-30 border-white text-white w-full py-2 focus:border-none focus:outline-none"
-                    placeholder="Enter your name"
-                  />
-                </div>
-
-                <div className="w-full md:w-1/2">
-                  <div className="flex items-center gap-4">
-                    <img src={contact_mail} alt="" />
-                    <label className="text-white font-[400] text-[14px] sm:text-[16px]">
-                      Email
-                    </label>
-                  </div>
-                  <input
-                    type="text"
-                    value={formData.email}
-                    className="bg-transparent border-b border-opacity-30 border-white text-white w-full py-2 focus:border-none focus:outline-none"
-                    placeholder="Enter your Email"
-                  />
-                </div>
-              </div>
-
-              <div className="flex flex-col md:flex-row justify-between gap-4">
-                <div className="w-full md:w-1/2">
-                  <div className="flex  gap-1 flex-col">
-                    <div className="flex gap-6">
-                      <img src={contact_phone} alt="" />
-                      <label className="font-beVietnam text-[16px] flex flex-col text-white ">
-                        Phone:
+              <form onSubmit={onSubmit}>
+                <div className="flex flex-col md:flex-row justify-between gap-4 mb-8">
+                  <div className="w-full md:w-1/2">
+                    <div className="flex items-center gap-4">
+                      <img src={contact_name} alt="" />
+                      <label className="text-white font-[400] text-[14px] sm:text-[16px]">
+                        Name
                       </label>
                     </div>
+                    <input
+                      type="text"
+                      name="name" // ✅ Add name attribute
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="bg-transparent border-b border-opacity-30 border-white text-white w-full py-2 focus:border-none focus:outline-none"
+                      placeholder="Enter your name"
+                    />
+                  </div>
 
-                    <div className="flex flex-col  ">
+                  <div className="w-full md:w-1/2">
+                    <div className="flex items-center gap-4">
+                      <img src={contact_mail} alt="" />
+                      <label className="text-white font-[400] text-[14px] sm:text-[16px]">
+                        Email
+                      </label>
+                    </div>
+                    <input
+                      type="text"
+                      name="email" // ✅ Add name attribute
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="bg-transparent border-b border-opacity-30 border-white text-white w-full py-2 focus:border-none focus:outline-none"
+                      placeholder="Enter your Email"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex flex-col md:flex-row justify-between gap-4 mb-12">
+                  <div className="w-full md:w-1/2">
+                    <div className="flex gap-1 flex-col">
+                      <div className="flex gap-6">
+                        <img src={contact_phone} alt="" />
+                        <label className="font-beVietnam text-[16px] flex flex-col text-white">
+                          Phone:
+                        </label>
+                      </div>
+
                       <PhoneInput
                         country={"ca"}
                         value={phoneNumber.number}
                         onChange={handlePhoneNumber}
-                        inputProps={{ required: true }}
-                        name="phoneNumber"
-                        buttonClass={{
-                          border: "none",
-                        }}
-                        dropdownClass="custom-dropdown-class"
-                        searchClass="custom-search-class"
+                        inputProps={{ required: true, name: "phoneNumber" }}
                         containerStyle={{
                           color: "white",
                           marginBottom: "10px",
                           marginTop: "5px",
+                          zIndex: "50",
                         }}
                         inputStyle={{
                           backgroundColor: "black",
                           border: "none",
-                          broder: "1px solid black",
                           borderBottomColor: "grey",
-                          marginLeft: "2px",
                           color: "white",
                           width: "95%",
                         }}
                         buttonStyle={{
-                          backgroundColor: "white",
+                          backgroundColor: "inherit",
                         }}
                         dropdownStyle={{
-                          backgroundColor: "black",
+                          backgroundColor: "inherit",
                           border: "none",
                           color: "white",
+                          maxHeight: "40px", // Adjust this to fit one row
+                          overflowY: "auto", // Enable scrolling if more options exist
                         }}
                       />
                     </div>
                   </div>
+                  <div className="w-full md:w-1/2">
+                    <div className="flex items-center gap-4">
+                      <img src={contact_messege} alt="" />
+                      <label className="text-white font-[400] text-[14px] sm:text-[16px]">
+                        Subject
+                      </label>
+                    </div>
+                    <input
+                      type="text"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      className="bg-transparent border-b border-opacity-30 border-white text-white w-full py-2 focus:border-none focus:outline-none"
+                      placeholder="Enter your subject"
+                    />
+                  </div>
                 </div>
-                <div className="w-full md:w-1/2">
-                  <div className="flex items-center gap-4">
-                    <img src={contact_messege} alt="" />
-                    <label className="text-white font-[400] text-[14px] sm:text-[16px]">
-                      Subject
+
+                <div className="mt-4 ">
+                  <div className="flex items-center gap-4 ">
+                    <img src={contact_pen} alt="" />
+                    <label className="text-white font-[400] text-[16px]">
+                      How can we help you? Feel free to get in touch!
                     </label>
                   </div>
-                  <input
-                    type="text"
-                    value={formData.subject}
+                  <textarea
                     className="bg-transparent border-b border-opacity-30 border-white text-white w-full py-2 focus:border-none focus:outline-none"
-                    placeholder="Enter your subject"
+                    rows="4"
+                    name="message"
+                    onChange={handleChange}
+                    value={formData.message}
                   />
                 </div>
-              </div>
-              <div className="mt-4">
-                <div className="flex items-center gap-4">
-                  <img src={contact_pen} alt="" />
-                  <label className="text-white font-[400] text-[16px]">
-                    How can we help you? Feel free to get in touch!
-                  </label>
-                </div>
-                <textarea
-                  className="bg-transparent border-b border-opacity-30 border-white text-white w-full py-2 focus:border-none focus:outline-none"
-                  rows="4"
-                  value={formData.message}
-                />
-              </div>
 
-              {/* Button and aggree */}
-              <div className="flex flex-col-reverse md:flex-row justify-between items-center mt-2 gap-6 w-full">
-                <div className="bg-black flex items-center justify-center p-1 sm:p-1 rounded-2xl gap-2 border border-white border-opacity-30 w-full sm:w-auto">
-                  <img src={lockin} alt="" />
-                  <button className="text-[#A2E000] font-bold text-[12px] sm:text-[14px] md:text-[16px] text-center">
-                    Get In Touch
-                  </button>
+                {/* Button and aggree */}
+                <div className="flex flex-col-reverse md:flex-row justify-between items-center mt-2 gap-6 w-full">
+                  <div className="bg-black flex items-center justify-center p-1 sm:p-1 rounded-2xl gap-2 border border-white border-opacity-30 w-full sm:w-auto">
+                    <img src={lockin} alt="" />
+                    <button className="text-[#A2E000] font-bold text-[12px] sm:text-[14px] md:text-[16px] text-center">
+                      Get In Touch
+                    </button>
+                  </div>
+                  <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 text-white text-[12px] sm:text-[14px] md:text-[16px] w-full sm:w-auto text-center md:text-left">
+                    <input
+                      type="checkbox"
+                      name="isChecked"
+                      checked={formData.isChecked}
+                      onChange={handleChange}
+                      className="w-4 h-4"
+                    />
+                    <span className="leading-tight">
+                      I agree that my data is
+                      <a href="#" className="underline ml-1">
+                        collected and stored
+                      </a>
+                    </span>
+                  </div>
                 </div>
-                <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 text-white text-[12px] sm:text-[14px] md:text-[16px] w-full sm:w-auto text-center md:text-left">
-                  <input type="checkbox" className="w-4 h-4" />
-                  <span className="leading-tight">
-                    I agree that my data is
-                    <a href="#" className="underline ml-1">
-                      collected and stored
-                    </a>
-                  </span>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>

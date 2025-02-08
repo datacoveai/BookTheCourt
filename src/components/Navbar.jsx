@@ -64,10 +64,10 @@ const Navbar = () => {
       {/* Buttons - Hidden on Small Devices */}
       <div className="hidden md:flex gap-2">
         <button className="bg-[#A2DF00] font-beVietnam text-[18px] font-[500] p-3 pl-6 pr-6 rounded-md">
-          Login
+          <Link to={"/login"}>Login</Link>
         </button>
         <button className="bg-inherit border border-[#A2DF00] font-beVietnam text-[18px] font-[500] p-3 pl-6 pr-6 rounded-md text-[#A2DF00]">
-          Sign Up
+          <Link to={"/signup"}>Sign Up</Link>
         </button>
       </div>
     </div>
