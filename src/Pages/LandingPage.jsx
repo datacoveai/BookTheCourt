@@ -151,11 +151,11 @@ const LandingPage = () => {
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          height: "100vh",
+
           width: "100%",
         }}
       >
-        <div className="flex flex-col justify-center items-center  px-8 sm:px-8 h-full">
+        <div className="flex flex-col justify-center items-center  px-8 sm:px-8 md:h-[80vh] pt-[2rem] pb-[2rem] ">
           <div className="text-center mt-2">
             <h2 className="uppercase text-white text-2xl sm:text-4xl font-bold leading-tight">
               Smarter <span className="text-[#A2DF00]">Scheduling</span>,
@@ -243,7 +243,7 @@ const LandingPage = () => {
         </div>
       </div>
       {/* Member Experience */}
-      <div className="md:h-[60vh] min-h-full bg-black flex justify-center items-center py-10 ">
+      <div className="md:h-[60vh] min-h-full bg-black flex justify-center items-center py-10 pt-[10rem] ">
         <div className=" w-full max-w-8xl px-4 sm:px-8 lg:px-16 flex flex-col-reverse md:flex-row items-center gap-8">
           <div className="w-full md:w-1/2 p-5 flex justify-center">
             <img

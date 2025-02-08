@@ -415,7 +415,7 @@ const Business = () => {
         </div>
       </div>
       {/* Member experience */}
-      <div className="h-auto min-h-full bg-[#070707] flex justify-center items-center py-10 sm:py-10 md:py-10 lg:py-10 ">
+      <div className="h-auto min-h-full bg-[#070707] flex justify-center items-center py-10 sm:py-10 md:py-10 lg:py-10  ">
         <div className=" w-full max-w-8xl px-4 sm:px-8 lg:px-16 flex flex-col-reverse md:flex-row items-center gap-8">
           <div className="w-full md:w-1/2 p-5 flex justify-center">
             <img

@@ -85,7 +85,7 @@ const Footer = () => {
 
   return (
     <>
-      <div className="bg-black p-10 ">
+      <div className="bg-black md:p-10 ">
         {/* newsletter */}
         <div className="flex justify-center">
           <div className="w-[90%] max-w-8xl bg-white rounded-[10px] flex flex-col md:flex-row justify-between items-center mt-[4rem]">
